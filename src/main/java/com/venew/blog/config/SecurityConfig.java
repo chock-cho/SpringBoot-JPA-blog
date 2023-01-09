@@ -2,6 +2,8 @@ package com.venew.blog.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,9 +17,15 @@ import org.springframework.security.web.SecurityFilterChain;
 // 특정 주소로 접근하면 권한 및 인증을 미리 체크하겠다는 뜻
 
 public class SecurityConfig {
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception
+	{
+		return configuration.getAuthenticationManager();
+	}
 	
-	@Bean // IoC가 되어요!
-	public BCryptPasswordEncoder encodePWD() {
+	// 비밀번호 해시화
+	@Bean
+	public BCryptPasswordEncoder encode() {
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -26,13 +34,16 @@ public class SecurityConfig {
 		http
 		.csrf().disable() //csrf 토큰 비활성화
 		  .authorizeHttpRequests()
-		    .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")
-			.permitAll()
-			.anyRequest()
-			.authenticated()
+		    .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**").permitAll()
+			.anyRequest().authenticated()
 		  .and()
 		    .formLogin()
-		    .loginPage("/auth/loginForm");
+		    .loginPage("/auth/loginForm")
+		    .loginProcessingUrl("/auth/loginProc")
+		    //스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채 대신 로그인을 해준다.
+		    .defaultSuccessUrl("/")
+		    ; 
+		
 		
 		return http.build();
 	}

@@ -1,7 +1,8 @@
 package com.venew.blog.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.venew.blog.model.User;
 
@@ -10,8 +11,10 @@ import com.venew.blog.model.User;
 //자동으로 bean등록이 된다.
 //@Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-
+	// naming Query : SELECT * FROM user WHERE username = 1?
+	Optional<User> findByUsername(String username);
 }
+
 	// JPA naming 쿼리
 	// SELECT * FROM user WHERE username = ?1 AND password = ?2
 	//User findByUsernameAndPassword(String username, String password);

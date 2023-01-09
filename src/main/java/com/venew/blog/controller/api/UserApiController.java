@@ -29,7 +29,7 @@ public class UserApiController {
 	}
 	
 	/*
-	 * @PostMapping("/api/user/login") 
+	 * @PostMapping("/auth/loginProc") 
 	 * public ResponseDto<Integer>
 	 * login(@RequestBody User user, HttpSession session) { 
 	 * User principal =

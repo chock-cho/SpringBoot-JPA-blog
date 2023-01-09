@@ -34,10 +34,10 @@ public class User {
 	//프로젝트에서 연결된 DB(MySQL)의 넘버링 전략(auto_increment)을 따라간다.
 	
 	private int id; // 시퀀스, auto_increment(mySQL)
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 30, unique = true)
 	private String username; //아이디
 	
-	@Column(nullable = false, length = 100) //123456 => 해쉬(비밀번호 암호화)
+	@Column(nullable = false, length = 200) //123456 => 해쉬(비밀번호 암호화)
 	private String password; 
 	
 	@Column(nullable = false, length = 50)
