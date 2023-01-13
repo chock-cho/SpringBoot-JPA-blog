@@ -26,6 +26,7 @@ public class UserApiController {
 		
 		userService.회원가입(user);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+		// 자바 오브젝트를 JSON으로 변환
 	}
 	
 	/*

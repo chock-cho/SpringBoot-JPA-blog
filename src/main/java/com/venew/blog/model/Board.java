@@ -14,9 +14,16 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Board {
 
@@ -30,7 +37,6 @@ public class Board {
 	@Lob //대용량 데이터
 	private String content; //섬머노트 라이브러리 <html>태그가 섞여서 디자인이 됨
 	
-	@ColumnDefault("0")
 	private int count ; //조회수
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -48,4 +54,5 @@ public class Board {
 	
 	@CreatedDate
 	private Timestamp createDate;
+
 }

@@ -2,6 +2,7 @@ package com.venew.blog.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,9 @@ public class Reply {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(nullable = false, length = 100)
+	private String title;
 	
 	@Lob //대용량 데이터
 	private String content; //섬머노트 라이브러리 <html>태그가 섞여서 디자인이 됨
